@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os # Noqa
+import os # NOQA
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
