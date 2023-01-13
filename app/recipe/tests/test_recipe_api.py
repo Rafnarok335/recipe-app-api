@@ -66,10 +66,7 @@ class PrivateRecipeApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = create_user(email='user@example.com', password='test123')
-        self.user = get_user_model().objects.create_user(
-            'user@example.com',
-            'testpass123',
-        )
+
         self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
@@ -126,7 +123,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_partial_update(self):
         """Test partial update of a recipe."""
-        original_link = 'http://example.com/recipe.pdf'
+        original_link = 'https://example.com/recipe.pdf'
 
         recipe = create_recipe(
             user=self.user,
@@ -149,15 +146,15 @@ class PrivateRecipeApiTests(TestCase):
         recipe = create_recipe(
             user=self.user,
             title='Sample recipe title',
-            link='http://example.com/recipe.pdf',
-            description='Sample recipe description',
+            link='https://example.com/recipe.pdf',
+            description='Sample recipe description.',
             )
         payload = {
             'title': 'New recipe title',
             'link': 'https://example.com/new-recipe.pdf',
             'description': 'New recipe description',
             'time_minutes': 10,
-            'price': Decimal('2.50')
+            'price': Decimal('2.50'),
         }
         url = detail_url(recipe.id)
         res = self.client.put(url, payload)
@@ -192,7 +189,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_recipe_other_users_recipe_error(self):
         """Test trying to delete another users recipe gives error."""
-        new_user = create_recipe(emai='user2@example.conm', password='test123')
+        new_user = create_user(email='user2@example.conm', password='test123')
         recipe = create_recipe(user=new_user)
 
         url = detail_url(recipe.id)
