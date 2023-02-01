@@ -410,7 +410,7 @@ class PrivateRecipeApiTests(TestCase):
         r2.ingredient.add(in2)
         r3 = create_recipe(user=self.user, title='Red Lentil Daal')
 
-        params = {'ingredients': f'{in1.id},{in2.id}'}
+        params = {'ingredient': f'{in1.id},{in2.id}'}
         res = self.client.get(RECIPES_URL, params)
         s1 = RecipeSerializer(r1)
         s2 = RecipeSerializer(r2)
